@@ -4,6 +4,7 @@ namespace spec\App\Accomodation;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use App\User;
 
 class ReservationValidatorSpec extends ObjectBehavior
 {
@@ -20,4 +21,28 @@ class ReservationValidatorSpec extends ObjectBehavior
         $this->shouldThrow('\InvalidArgumentException')
                 ->duringValidate($start_date, $end_date, $rooms);
     }
+
+
+    function it_cannot_be_made_for_more_than_fifteen_days(User $user, $start_date, $end_date, $room){
+
+        $start_date = '2016-06-13';
+        $end_date   = '2016-07-30';
+        $rooms = [$room];
+        $this->shouldThrow('\InvalidArgumentException')
+              ->duringCreateNew($start_date, $end_date, $rooms);
+
+    }
+
+    /*
+    function it_cannot_be_made_for_more_than_fifteen_days(User $user,
+                                                          $start_date, $end_date, Room $room)
+    {
+        $start_date = '2015-06-01';
+        $end_date = '2015-07-30';
+        $rooms = [$room];
+        $this->shouldThrow('\InvalidArgumentException')
+            ->duringCreateNew( $user,$start_date,$end_date,$rooms);
+    }
+    */
+
 }
