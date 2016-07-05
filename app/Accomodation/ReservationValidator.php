@@ -10,7 +10,10 @@ class ReservationValidator
 {
 
     const MINIMUM_STAY_LENGTH = 1 ;
+
     const MAXIMUM_STAY_LENGTH = 15;
+
+    const MAXIMUM_ROOMS = 4;
 
 
     /**
@@ -60,9 +63,15 @@ class ReservationValidator
         $rooms = $room;
 
 
-        if(daysAreGreaterThanMaximumAllowed($start, $end)){
+        if($this->daysAreGreaterThanMaximumAllowed($start, $end)){
 
             throw new \InvalidArgumentException("Cannot reserve a room for more than fifteen (15) days");
+        }
+
+        if($this->tooManyRooms($rooms)){
+
+            throw new \InvalidArgumentException("Reservation cannot be made for more than four(4) rooms");
+
         }
 
 
@@ -79,4 +88,17 @@ class ReservationValidator
 
         // check if the days is less that 15 and greater than 1, implement later on;
     }
+
+    private function tooManyRooms($rooms){
+
+        return count($rooms) > self::MAXIMUM_ROOMS;
+
+    }
+
+    public function rooms(){
+
+        $this->belongsToMany('App\Room')->withTimestamps();
+
+    }
+
 }

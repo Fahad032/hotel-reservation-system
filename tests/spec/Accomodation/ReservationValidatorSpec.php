@@ -5,6 +5,7 @@ namespace spec\App\Accomodation;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use App\User;
+use App\Room;
 
 class ReservationValidatorSpec extends ObjectBehavior
 {
@@ -30,6 +31,21 @@ class ReservationValidatorSpec extends ObjectBehavior
         $rooms = [$room];
         $this->shouldThrow('\InvalidArgumentException')
               ->duringCreateNew($start_date, $end_date, $rooms);
+
+    }
+
+
+    function it_cannot_contain_more_than_four_rooms($start_date, $end_date, Room $room1, Room $room2, Room $room3, Room $room4, Room $room5){
+
+        $start_date = '2016-06-13';
+
+        $end_date   = '2016-06-20';
+
+        $rooms = [$room1, $room2, $room3, $room4, $room5];
+
+        $this->shouldThrow('\InvalidArgumentException')
+            ->duringCreateNew($start_date, $end_date, $rooms);
+
 
     }
 
