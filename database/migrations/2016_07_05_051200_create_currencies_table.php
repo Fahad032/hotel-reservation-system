@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLocationsTable extends Migration
+class CreateCurrenciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,17 @@ class CreateLocationsTable extends Migration
      */
     public function up()
     {
-        //
+
+        Schema::create('currencies', function( Blueprint $table ){
+
+            $table->increments('id');
+
+            $table->string('three_letter_code');
+
+            $table->string('name');
+
+        });
+
     }
 
     /**
@@ -22,6 +32,8 @@ class CreateLocationsTable extends Migration
      */
     public function down()
     {
-        //
+
+        Schema::drop('currencies');
+
     }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCurrenciesTable extends Migration
+class CreateAmenitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,18 @@ class CreateCurrenciesTable extends Migration
      */
     public function up()
     {
-        //
+
+        Schema::create('amenities', function( Blueprint $table ){
+
+            $table->increments('id');
+
+            $table->string('name');
+
+            $table->text('description');
+
+            $table->timestamps();
+
+        });
     }
 
     /**
@@ -23,5 +34,7 @@ class CreateCurrenciesTable extends Migration
     public function down()
     {
         //
+        Schema::drop('amenities');
+
     }
 }
